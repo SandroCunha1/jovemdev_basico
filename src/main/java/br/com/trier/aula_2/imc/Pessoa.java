@@ -1,11 +1,12 @@
-package br.com.trier.aula_1;
+package br.com.trier.aula_2.imc;
 
- class Pessoa {
+import javax.swing.JOptionPane;
+
+class Pessoa {
 	private String nome;
 	private char sexo;
 	private double peso;
 	private double altura;
-	private double imc;
 
 	public Pessoa(String nome, char sexo, double peso, double altura) {
 		super();
@@ -13,6 +14,15 @@ package br.com.trier.aula_1;
 		this.sexo = sexo;
 		this.peso = peso;
 		this.altura = altura;
+	}
+	
+	void cadastrar() {
+		this.nome = JOptionPane.showInputDialog("Nome:");
+		do {
+			this.sexo = JOptionPane.showInputDialog("Sexo (M) ou (F):").toUpperCase().charAt(0);
+		} while (this.sexo != 'M' && this.sexo != 'F');
+		this.peso = Double.parseDouble(JOptionPane.showInputDialog("Peso (em kg):"));
+		this.altura = Double.parseDouble(JOptionPane.showInputDialog("Altura (em metros):"));
 	}
 
 	public Pessoa() {
@@ -52,11 +62,11 @@ package br.com.trier.aula_1;
 	
 	
 	public double getIMC() {
-		this.imc = this.peso / Math.pow(this.altura, 2); 
-		return this.imc;
+		return this.peso / Math.pow(this.altura, 2);
 	}
 	
 	public String getAvaliacaoIMC() {
+		double imc = this.getIMC();
 		if(sexo == 'F') {
 			if (imc < 19.1) {
 				return "Abaixo do peso";
@@ -84,4 +94,11 @@ package br.com.trier.aula_1;
 			}
 		}
 	}
+
+	@Override
+	public String toString() {
+		return String.format("Pessoa [nome= %s, sexo= %s, IMC= %.2f, Avaliação= %s ]", nome, sexo, getIMC(), getAvaliacaoIMC() );
+	}
+	
+	
 }
