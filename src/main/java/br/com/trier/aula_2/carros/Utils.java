@@ -7,8 +7,11 @@ import javax.swing.JOptionPane;
 public class Utils {
 
 	static int escolheOp() {
-		String menu = "1 - Cadastrar\n" + "2 - Listar carros por período de fabricação\n"
-				+ "3 - Listar carros por marca\n" + "4 - Listar carros por cor\n" + "5 - Mostrar todos os carros\n\n"
+		String menu = "1 - Cadastrar\n" 
+				+ "2 - Listar carros por período de fabricação\n"
+				+ "3 - Listar carros por marca\n" 
+				+ "4 - Listar carros por cor\n" 
+				+ "5 - Mostrar todos os carros\n\n"
 				+ "6 - Sair";
 		return Integer.parseInt(JOptionPane.showInputDialog(menu));
 	}
@@ -66,7 +69,7 @@ public class Utils {
 			marcaValida = true;
 		}
 		for (Car car : cars) {
-			if (car.getbrand().equalsIgnoreCase(marca)) {
+			if (car.getBrand().equalsIgnoreCase(marca)) {
 				carsInTheFormat.add(car);
 			}
 		}

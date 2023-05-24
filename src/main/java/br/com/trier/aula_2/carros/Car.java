@@ -1,7 +1,11 @@
 package br.com.trier.aula_2.carros;
 
 import javax.swing.JOptionPane;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class Car {
 	public static final String DATE_FORMAT = "dd/MM/yyyy";
 
@@ -19,11 +23,11 @@ public class Car {
 		while (!cadastroValido) {
 			try {
 				this.brand = JOptionPane.showInputDialog("Marca: ");
-				if (this.getbrand().equals("")) {
+				if (brand.trim().equals("")) {
 					throw new Exception("Digite uma marca!");
 				}
 				String stringDate = JOptionPane.showInputDialog("Data de fabricação:");
-				if (stringDate.length() != 4) {
+				if (stringDate.trim().length() != 4) {
 					throw new Exception("Ano inválido, formato esperado: (yyyy)");
 				}
 				this.manufacturingDate = Integer.parseInt(stringDate);
@@ -39,29 +43,6 @@ public class Car {
 		}
 	}
 
-	public int getManufacturingDate() {
-		return manufacturingDate;
-	}
-
-	public void setManufacturingDate(int manufacturingDate) {
-		this.manufacturingDate = manufacturingDate;
-	}
-
-	public String getbrand() {
-		return brand;
-	}
-
-	public void setbrand(String brand) {
-		this.brand = brand;
-	}
-
-	public Color getColor() {
-		return color;
-	}
-
-	public void setColor(Color color) {
-		this.color = color;
-	}
 
 	public static String colorOptions() {
 		Color[] corlors = Color.values();
