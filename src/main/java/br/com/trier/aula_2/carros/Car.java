@@ -1,6 +1,5 @@
 package br.com.trier.aula_2.carros;
 
-
 import javax.swing.JOptionPane;
 
 public class Car {
@@ -15,28 +14,28 @@ public class Car {
 	}
 
 	public void cadastraCarro() {
-		boolean dataValida = false;
+		boolean cadastroValido = false;
 
-		while (!dataValida) {
+		while (!cadastroValido) {
 			try {
 				this.brand = JOptionPane.showInputDialog("Marca: ");
-				if(this.getbrand().equals("")) {
+				if (this.getbrand().equals("")) {
 					throw new Exception("Digite uma marca!");
 				}
 				String stringDate = JOptionPane.showInputDialog("Data de fabricação:");
-				if(stringDate.length() != 4) {
+				if (stringDate.length() != 4) {
 					throw new Exception("Ano inválido, formato esperado: (yyyy)");
 				}
 				this.manufacturingDate = Integer.parseInt(stringDate);
-				
+
 				int colorNumber = Integer.parseInt(JOptionPane.showInputDialog(colorOptions()));
 				this.color = Color.values()[colorNumber - 1];
-				
+
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null,  e + "\nErro no cadastro!" );
+				JOptionPane.showMessageDialog(null, e + "\nErro no cadastro!");
 				continue;
 			}
-			dataValida = true;
+			cadastroValido = true;
 		}
 	}
 
@@ -65,20 +64,17 @@ public class Car {
 	}
 
 	public static String colorOptions() {
-		 Color[] corlors = Color.values();
-	        String colorOptions = "";
-	        for (int i = 0; i < corlors.length; i++) {
-	        	colorOptions += (i + 1) + ". " + corlors[i] + "\n";
-	        }
-	        return colorOptions;
+		Color[] corlors = Color.values();
+		String colorOptions = "";
+		for (int i = 0; i < corlors.length; i++) {
+			colorOptions += (i + 1) + ". " + corlors[i] + "\n";
+		}
+		return colorOptions;
 	}
 
 	@Override
 	public String toString() {
-		return "\nCarro [Data de fabricação =" + manufacturingDate + ", Marca =" + brand + ", Cor =" + color + "]";
+		return "\n" + this.brand + "\nAno: " + this.manufacturingDate + "\nCor: " + this.color;
 	}
-	
-	
-
 
 }

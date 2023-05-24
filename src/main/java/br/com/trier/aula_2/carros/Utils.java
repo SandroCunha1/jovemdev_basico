@@ -22,24 +22,23 @@ public class Utils {
 		while (!dataValida) {
 			try {
 				String stringDateInicio = JOptionPane.showInputDialog("Data inicio:");
-				if(stringDateInicio.length() != 4) {
+				if (stringDateInicio.length() != 4) {
 					throw new Exception("Ano inválido, formato esperado: (yyyy)");
 				}
-				 anoInicial = Integer.parseInt(stringDateInicio);
-				 
-				 String stringDateFinal = JOptionPane.showInputDialog("Data final:");
-					if(stringDateFinal.length() != 4) {
-						throw new Exception("Ano inválido, formato esperado: (yyyy)");
-					}
-					anoFinal = Integer.parseInt(stringDateFinal);
-				
+				anoInicial = Integer.parseInt(stringDateInicio);
+
+				String stringDateFinal = JOptionPane.showInputDialog("Data final:");
+				if (stringDateFinal.length() != 4) {
+					throw new Exception("Ano inválido, formato esperado: (yyyy)");
+				}
+				anoFinal = Integer.parseInt(stringDateFinal);
+
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null,  e + "\nErro no filtro!" );
+				JOptionPane.showMessageDialog(null, e + "\nErro no filtro!");
 				continue;
 			}
 			dataValida = true;
 		}
-		
 
 		for (Car car : cars) {
 			if (car.getManufacturingDate() >= anoInicial && car.getManufacturingDate() <= anoFinal) {
@@ -51,9 +50,21 @@ public class Utils {
 
 	static List<Car> brandFilter(List<Car> cars) {
 		List<Car> carsInTheFormat = new ArrayList<Car>();
+		String marca = "";
+		boolean marcaValida = false;
 
-		String marca = JOptionPane.showInputDialog("Marca que você deseja procurar: ");
-
+		while (!marcaValida) {
+			try {
+				marca = JOptionPane.showInputDialog("Marca que você deseja procurar: ");
+				if (marca.equals("")) {
+					throw new Exception("Digite uma marca!");
+				}
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, e + "\nERRO !");
+				continue;
+			}
+			marcaValida = true;
+		}
 		for (Car car : cars) {
 			if (car.getbrand().equalsIgnoreCase(marca)) {
 				carsInTheFormat.add(car);
@@ -65,9 +76,9 @@ public class Utils {
 	static List<Car> colorFilter(List<Car> cars) {
 		List<Car> carsInTheFormat = new ArrayList<Car>();
 		Color color = Color.BRANCO;
-		boolean dataValida = false;
+		boolean corValida = false;
 
-		while (!dataValida) {
+		while (!corValida) {
 			try {
 				int colorNumber = Integer.parseInt(JOptionPane.showInputDialog(Car.colorOptions()));
 				color = Color.values()[colorNumber - 1];
@@ -75,7 +86,7 @@ public class Utils {
 				JOptionPane.showMessageDialog(null, e + "\nCor inválida!");
 				continue;
 			}
-			dataValida = true;
+			corValida = true;
 		}
 
 		for (Car car : cars) {
@@ -89,24 +100,27 @@ public class Utils {
 	static void printCarArray(List<Car> cars) {
 		String ret = "";
 		for (Car car : cars) {
+			ret += "\n-------------------------------------";
 			ret += car.toString();
 		}
-		
+
 		JOptionPane.showMessageDialog(null, ret);
 	}
+
 	static void printCarArray(List<Car> cars, List<Car> carsFiltered) {
 		String ret = "";
 		for (Car car : carsFiltered) {
+			ret += "\n-------------------------------------";
 			ret += car.toString();
 		}
-	
+
 		ret += "\n\nPorcentagem: " + calcPercent(carsFiltered, cars) + "%";
-		
+
 		JOptionPane.showMessageDialog(null, ret);
 	}
-	
+
 	static double calcPercent(List<Car> carsFiltered, List<Car> cars) {
 		return ((double) carsFiltered.size() / cars.size()) * 100;
-		
+
 	}
 }
