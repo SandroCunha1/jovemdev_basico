@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-
 public class Main {
 
 	public static void main(String[] args) {
@@ -24,7 +23,12 @@ public class Main {
 			if (op == 1) {
 				teams.add(new Team(true));
 			} else if (op == 2) {
-				JOptionPane.showMessageDialog(null, Utils.chooseTeam(teams).toString());
+				try {
+					JOptionPane.showMessageDialog(null, Utils.chooseTeam(teams).toString());
+				} catch (NullPointerException e) {
+					JOptionPane.showMessageDialog(null, "Time não encontrado! ");
+					continue;
+				}
 			} else if (op == 3) {
 				JOptionPane.showMessageDialog(null, Utils.getTopPlayer(teams).toString());
 			} else if (op == 4) {

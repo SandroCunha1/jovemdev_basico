@@ -1,8 +1,6 @@
 package br.com.trier.aula_3.football;
 
-import java.util.Iterator;
 import java.util.List;
-
 import javax.swing.JOptionPane;
 
 public class Utils {
@@ -23,8 +21,15 @@ public class Utils {
 	}
 
 	static Team chooseTeam(List<Team> teams) {
-
-		String teamName = JOptionPane.showInputDialog("Escolha um time para ver os jogadores: \n" + printTeams(teams));
+		String teamName = "";
+		try {
+			teamName = JOptionPane.showInputDialog("Escolha um time para ver os jogadores: \n" + printTeams(teams));
+			if (teamName.trim().equals("")) {
+				throw new Exception("Digite um nome!");
+			}
+		} catch (Exception e) {
+			chooseTeam(teams);
+		}
 
 		for (Team team : teams) {
 			if (team.getName().equalsIgnoreCase(teamName)) {
@@ -40,7 +45,7 @@ public class Utils {
 		for (Team team : teams) {
 			for (int i = 0; i < team.getPlayers().size(); i++) {
 				Player player = team.getPlayers().get(i);
-				if(player.getGols() > topPlayer.getGols()) {
+				if (player.getGols() > topPlayer.getGols()) {
 					topPlayer.setName(player.getName());
 					topPlayer.setShirtNumber(player.getShirtNumber());
 					topPlayer.setGols(player.getGols());
@@ -49,24 +54,24 @@ public class Utils {
 		}
 		return topPlayer;
 	}
-	
-	static Team getTopGolsTeam (List<Team> teams) {
+
+	static Team getTopGolsTeam(List<Team> teams) {
 		Team topGolsTeam = new Team();
 		topGolsTeam.setTotalGols(0);
-		
+
 		for (Team team : teams) {
 			int totalGols = 0;
 			for (int i = 0; i < team.getPlayers().size(); i++) {
 				Player player = team.getPlayers().get(i);
-				totalGols += player.getGols();				
+				totalGols += player.getGols();
 			}
 			team.setTotalGols(totalGols);
-			if(team.getTotalGols() > topGolsTeam.getTotalGols()) {
+			if (team.getTotalGols() > topGolsTeam.getTotalGols()) {
 				topGolsTeam.setName(team.getName());
 				topGolsTeam.setPlayers(team.getPlayers());
 				topGolsTeam.setTotalGols(totalGols);
 			}
-			
+
 		}
 		return topGolsTeam;
 	}

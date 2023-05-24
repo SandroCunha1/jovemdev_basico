@@ -15,27 +15,42 @@ public class Team {
 	private String name;
 	private List<Player> players = new ArrayList<Player>();
 	private int totalGols;
-	
+
 	public Team(boolean menu) {
 		boolean addPlayer = true;
 		int choose;
-		this.name = JOptionPane.showInputDialog("Nome da equipe");
-		do {
-			choose = JOptionPane.showConfirmDialog(null, "Você deseja adicionar um novo jogador?");
-			if(choose == 0) {
-				players.add(new Player(true));
-			} else {
-				addPlayer = false;
+		boolean cadastroValido = false;
+
+		while (!cadastroValido) {
+			try {
+				this.name = JOptionPane.showInputDialog("Nome da equipe");
+				if (this.name.trim().equals("")) {
+					throw new Exception("Digite um nome!");
+				}
+				do {
+					choose = JOptionPane.showConfirmDialog(null, "Você deseja adicionar um novo jogador?");
+					if (choose == 0) {
+						players.add(new Player(true));
+					} else {
+						addPlayer = false;
+					}
+
+				} while (addPlayer);
+
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, e + "\nErro no cadastro!");
+				continue;
 			}
-			
-		} while(addPlayer);
+			cadastroValido = true;
+		}
+
 	}
-	
+
 	public Team() {
-		
+
 	}
-	
-	public String stringPlayers(){
+
+	public String stringPlayers() {
 		String ret = "";
 		for (Player player : players) {
 			ret += player.toString();
@@ -46,10 +61,7 @@ public class Team {
 
 	@Override
 	public String toString() {
-		return "Nome do time: "+ name
-				+ "\nJogadores { \n"+ stringPlayers() + "}\n\n";
+		return "Nome do time: " + name + "\nJogadores { \n" + stringPlayers() + "}\n\n";
 	}
-	
-	
-	
+
 }
