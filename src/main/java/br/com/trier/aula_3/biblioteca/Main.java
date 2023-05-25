@@ -19,21 +19,23 @@ public class Main {
 			}
 
 			if (op == 1) {
-				Author author = new Author(true);
+				Author author = new Author();
+				author.cadastraAutor();
 				authors.add(author);
 			} else if (op == 2) {
-				Book book = new Book(true, authors);
+				Book book = new Book();
+				book.cadastraBook(authors);
 				books.add(book);
 			} else if (op == 3) {
 				JOptionPane.showMessageDialog(null, Utils.stringAllArrayObjects(books));	
 			} else if (op == 4) {
-				JOptionPane.showMessageDialog(null, Utils.getBooksForAuthors(authors, books));
+				JOptionPane.showMessageDialog(null, Utils.stringAllArrayObjects(Utils.getBooksForAuthors(authors, books)));
 			} else if (op == 5) {
-				JOptionPane.showMessageDialog(null, Utils.getBooksByPrice(books));
+				JOptionPane.showMessageDialog(null, Utils.stringAllArrayObjects(Utils.getBooksByPrice(books)));
 			} else if (op == 6) {
-				JOptionPane.showMessageDialog(null, Utils.getBooksWithChildAuthors(books));
+				JOptionPane.showMessageDialog(null, Utils.stringAllArrayObjects(Utils.getBooksWithChildAuthors(books)));
 			} else if (op == 7) {
-				JOptionPane.showMessageDialog(null, Utils.getBooksByGender(books));
+				JOptionPane.showMessageDialog(null, Utils.stringAllArrayObjects(Utils.getBooksByGender(books)));
 			}
 		} while (op != 8);
 	}

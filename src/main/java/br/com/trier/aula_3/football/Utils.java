@@ -19,11 +19,19 @@ public class Utils {
 		}
 		return ret;
 	}
+	
+	static String printTeams(List<Team> teams, boolean players) {
+		String ret = "";
+		for (Team team : teams) {
+			ret += team.toString(players);
+		}
+		return ret;
+	}
 
 	static Team chooseTeam(List<Team> teams) {
 		String teamName = "";
 		try {
-			teamName = JOptionPane.showInputDialog("Escolha um time para ver os jogadores: \n" + printTeams(teams));
+			teamName = JOptionPane.showInputDialog("Escolha um time para ver os jogadores: \n" + printTeams(teams, false));
 			if (teamName.trim().equals("")) {
 				throw new Exception("Digite um nome!");
 			}
@@ -43,36 +51,26 @@ public class Utils {
 		Player topPlayer = new Player();
 		topPlayer.setGols(0);
 		for (Team team : teams) {
-			for (int i = 0; i < team.getPlayers().size(); i++) {
-				Player player = team.getPlayers().get(i);
-				if (player.getGols() > topPlayer.getGols()) {
-					topPlayer.setName(player.getName());
-					topPlayer.setShirtNumber(player.getShirtNumber());
-					topPlayer.setGols(player.getGols());
+				if (team.getTopPlayer().getGols() > topPlayer.getGols()) {
+					topPlayer.setName(team.getTopPlayer().getName());
+					topPlayer.setShirtNumber(team.getTopPlayer().getShirtNumber());
+					topPlayer.setGols(team.getTopPlayer().getGols());
 				}
 			}
-		}
+		
 		return topPlayer;
 	}
 
 	static Team getTopGolsTeam(List<Team> teams) {
 		Team topGolsTeam = new Team();
-		topGolsTeam.setTotalGols(0);
-
+		
 		for (Team team : teams) {
-			int totalGols = 0;
-			for (int i = 0; i < team.getPlayers().size(); i++) {
-				Player player = team.getPlayers().get(i);
-				totalGols += player.getGols();
-			}
-			team.setTotalGols(totalGols);
-			if (team.getTotalGols() > topGolsTeam.getTotalGols()) {
+			if (team.getGols() > topGolsTeam.getGols()) {
 				topGolsTeam.setName(team.getName());
 				topGolsTeam.setPlayers(team.getPlayers());
-				topGolsTeam.setTotalGols(totalGols);
 			}
-
 		}
+		
 		return topGolsTeam;
 	}
 

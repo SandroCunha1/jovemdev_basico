@@ -14,6 +14,28 @@ public class Utils {
 		return Integer.parseInt(JOptionPane.showInputDialog(menu));
 	}
 
+	static Author chooseAuthor(List<Author> authors) {
+		String authorName = "";
+		try {
+			authorName = JOptionPane.showInputDialog("Escolha um autor: \n" + Utils.stringAllArrayObjects(authors));
+			if (authorName.trim().equals("")) {
+				throw new Exception("Escolha um autor!");
+			}
+		} catch (Exception e) {
+			if (JOptionPane.showConfirmDialog(null, "Você deseja sair?") < 1) {
+				return null;
+			}
+			chooseAuthor(authors);
+		}
+
+		for (Author author : authors) {
+			if (author.getName().equalsIgnoreCase(authorName)) {
+				return author;
+			}
+		}
+		return null;
+	}
+
 	static <T> String stringAllArrayObjects(List<T> Array) {
 		String ret = "";
 		for (T object : Array) {
@@ -23,40 +45,56 @@ public class Utils {
 		return ret;
 	}
 
-	static String getBooksForAuthors(List<Author> authors, List<Book> books) {
+	static List<Book> getBooksForAuthors(List<Author> authors, List<Book> books) {
 		List<Book> authorBooks = new ArrayList<>();
-		Author author = Book.chooseAuthor(authors);
+
+		Author author = chooseAuthor(authors);
+		if (author == null) {
+			JOptionPane.showMessageDialog(null, "Você precisa escolher um autor !");
+			getBooksForAuthors(authors, books);
+		}
+
 		for (Book book : books) {
 			if (book.isAuthorInBook(author)) {
 				authorBooks.add(book);
 			}
 		}
-		return stringAllArrayObjects(authorBooks);
+		return authorBooks;
 	}
 
-	static String getBooksByPrice(List<Book> books) {
+	static List<Book> getBooksByPrice(List<Book> books) {
 		List<Book> booksInThePrice = new ArrayList<>();
-		double valorMin = Double.parseDouble(JOptionPane.showInputDialog("Valor minimo:"));
-		double valorMax = Double.parseDouble(JOptionPane.showInputDialog("Valor máximo:"));
+		double valorMin = 0;
+		double valorMax = 0;
+		try {
+			valorMin = Double.parseDouble(JOptionPane.showInputDialog("Valor minimo:"));
+			if (valorMin < 0) {
+				throw new Exception();
+			}
+			valorMax = Double.parseDouble(JOptionPane.showInputDialog("Valor máximo:"));
+		} catch (Exception e) {
+			getBooksByPrice(books);
+		}
+
 		for (Book book : books) {
 			if (book.isInThePrice(valorMin, valorMax)) {
 				booksInThePrice.add(book);
 			}
 		}
-		return stringAllArrayObjects(booksInThePrice);
+		return booksInThePrice;
 	}
 
-	static String getBooksWithChildAuthors(List<Book> books) {
+	static List<Book> getBooksWithChildAuthors(List<Book> books) {
 		List<Book> booksWithChild = new ArrayList<>();
 		for (Book book : books) {
 			if (book.isChild()) {
 				booksWithChild.add(book);
 			}
 		}
-		return stringAllArrayObjects(booksWithChild);
+		return booksWithChild;
 	}
 
-	static String getBooksByGender(List<Book> books) {
+	static List<Book> getBooksByGender(List<Book> books) {
 		List<Book> booksGender = new ArrayList<>();
 		EnumGender gender = EnumGender.escolheGenero();
 		for (Book book : books) {
@@ -64,7 +102,7 @@ public class Utils {
 				booksGender.add(book);
 			}
 		}
-		return stringAllArrayObjects(booksGender);
+		return booksGender;
 	}
 
 }

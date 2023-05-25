@@ -10,29 +10,17 @@ public class Book {
 	private double price;
 	private List<Author> authors = new ArrayList<Author>();
 
-	public Book(boolean menu, List<Author> allAuthors) {
-		int choose = 0;
+	public Book() {	
+	}
+	
+	public void cadastraBook(List<Author> allAuthors) {
 		boolean cadastroValido = false;
 
 		while (!cadastroValido) {
 			try {
-				this.title = JOptionPane.showInputDialog("Titulo").toLowerCase();
-				if (this.title.trim().equals("")) {
-					throw new Exception("Digite um titulo!");
-				}
-				this.price = Double.parseDouble(JOptionPane.showInputDialog("Preço"));
-				if (this.price <= 0) {
-					throw new Exception("Preço inválido!");
-				}
-				do {
-					Author author = chooseAuthor(allAuthors);
-					if (author == null) {
-						continue;
-					}
-					this.authors.add(author);
-					choose = JOptionPane.showConfirmDialog(null, "Deseja adicionar um novo autor ? ");
-				} while (this.authors.size() < 4 && choose == 0);
-
+				setTitulo();
+				setPrice();
+				setAuthors(allAuthors);
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null, e + "\nErro no cadastro!");
 				continue;
@@ -41,24 +29,46 @@ public class Book {
 		}
 	}
 
-	static Author chooseAuthor(List<Author> authors) {
-		String authorName = "";
-		try {
-			authorName = JOptionPane.showInputDialog("Escolha um autor: \n" + Utils.stringAllArrayObjects(authors));
-			if (authorName.trim().equals("")) {
-				throw new Exception("Escolha um autor!");
-			}
-		} catch (Exception e) {
-			chooseAuthor(authors);
+	public void setTitulo() throws Exception {
+		this.title = JOptionPane.showInputDialog("Titulo").toLowerCase();
+		if (this.title.trim().equals("")) {
+			throw new Exception("Digite um titulo!");
 		}
-
-		for (Author author : authors) {
-			if (author.getName().equalsIgnoreCase(authorName)) {
-				return author;
-			}
-		}
-		return null;
 	}
+
+	public void setPrice() throws Exception {
+		this.price = Double.parseDouble(JOptionPane.showInputDialog("Preço"));
+		if (this.price <= 0) {
+			throw new Exception("Preço inválido!");
+		}
+	}
+	
+	public void setAuthors(List<Author> allAuthors) throws Exception {
+		int choose = 0;
+		do {
+			Author author = Utils.chooseAuthor(allAuthors);
+			if (author == null) {
+				break;
+			}
+			if (isAlredyActor(author)) {
+				JOptionPane.showMessageDialog(null, "Já é um autor deste livro!");
+				continue;
+			}
+			this.authors.add(author);
+			choose = JOptionPane.showConfirmDialog(null, "Deseja adicionar um novo autor ? ");
+		} while (this.authors.size() < 4 && choose == 0);
+	}
+	
+	
+	public boolean isAlredyActor(Author newAuthor) {
+		for (Author author : authors) {
+			if(author.equals(newAuthor)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 
 	public boolean isAuthorInBook(Author author) {
 		for (Author ThisAuthor : this.authors) {

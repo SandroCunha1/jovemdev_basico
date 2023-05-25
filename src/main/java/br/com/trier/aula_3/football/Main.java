@@ -21,7 +21,9 @@ public class Main {
 			}
 
 			if (op == 1) {
-				teams.add(new Team(true));
+				
+				teams.add(new Team());
+				teams.get(teams.size() - 1).registerTeam();;
 			} else if (op == 2) {
 				try {
 					JOptionPane.showMessageDialog(null, Utils.chooseTeam(teams).toString());

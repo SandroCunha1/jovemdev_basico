@@ -12,7 +12,10 @@ public class Player {
 	private int shirtNumber;
 	private int gols;
 
-	public Player(boolean menu) {
+	public Player() {
+	}
+	
+	public void registerPlayer() {
 		boolean cadastroValido = false;
 
 		while (!cadastroValido) {
@@ -31,12 +34,8 @@ public class Player {
 			}
 			cadastroValido = true;
 		}
-
 	}
 
-	public Player() {
-
-	}
 
 	@Override
 	public String toString() {

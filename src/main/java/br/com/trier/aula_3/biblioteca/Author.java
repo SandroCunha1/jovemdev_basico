@@ -12,29 +12,43 @@ public class Author {
 	private EnumGender gender;
 	private int age;
 
-	public Author(boolean menu) {
+	public Author() {	
+	}
+	public void cadastraAutor() {
 		boolean cadastroValido = false;
 
 		while (!cadastroValido) {
 			try {
-				this.name = JOptionPane.showInputDialog("Nome e Sobrenome");
-				String[] palavras = this.name.split(" ");
-				int quantidadePalavras = palavras.length;
-				System.err.println(quantidadePalavras);
-				if (this.name.trim().equals("") || quantidadePalavras < 2) {
-					throw new Exception("Digite o nome e sobrenome!");
-				}
-
-				this.age = Integer.parseInt(JOptionPane.showInputDialog("Idade"));
-
-				this.gender = EnumGender.escolheGenero();
-
+				setName();
+				setAge();
+				setGender();
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null, e + "\nErro no cadastro!");
 				continue;
 			}
 			cadastroValido = true;
 		}
+	}
+
+	public void setName() throws Exception {
+		this.name = JOptionPane.showInputDialog("Nome e Sobrenome");
+		String[] palavras = this.name.split(" ");
+		int quantidadePalavras = palavras.length;
+		System.err.println(quantidadePalavras);
+		if (this.name.trim().equals("") || quantidadePalavras < 2) {
+			throw new Exception("Digite o nome e sobrenome!");
+		}
+	}
+
+	public void setAge() throws Exception {
+		this.age = Integer.parseInt(JOptionPane.showInputDialog("Idade"));
+		if (this.age <= 0) {
+			throw new Exception("Idade inválida!");
+		}
+	}
+
+	public void setGender() throws Exception {
+		this.gender = EnumGender.escolheGenero();
 	}
 
 	@Override
