@@ -1,5 +1,6 @@
 package br.com.trier.aula_3.biblioteca;
 
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 import lombok.Getter;
@@ -27,17 +28,32 @@ public enum EnumGender {
 		return null;
 	}
 
+	/*
+	 * static EnumGender escolheGenero() { String menu = "Gênero: \n"; for
+	 * (EnumGender sex : EnumGender.values()) { menu += sex.id + " - " +
+	 * sex.description + "\n"; } int escolha =
+	 * Integer.parseInt(JOptionPane.showInputDialog(menu)); if
+	 * (buscaPorCodigo(escolha) == null) { JOptionPane.showMessageDialog(null,
+	 * "Gênero inválido!"); return escolheGenero(); } return
+	 * buscaPorCodigo(escolha); }
+	 */
+	
 	static EnumGender escolheGenero() {
-		String menu = "Gênero: \n";
-		for (EnumGender sex : EnumGender.values()) {
-			menu += sex.id + " - " + sex.description + "\n";
-		}
-		int escolha = Integer.parseInt(JOptionPane.showInputDialog(menu));
-		if (buscaPorCodigo(escolha) == null) {
-			JOptionPane.showMessageDialog(null, "Gênero inválido!");
-			return escolheGenero();
-		}
-		return buscaPorCodigo(escolha);
-	}
+        EnumGender[] genders = EnumGender.values();
+        String[] genderDescriptions = new String[genders.length];
+        for (int i = 0; i < genders.length; i++) {
+            genderDescriptions[i] = genders[i].getId() + " - " + genders[i].getDescription();
+        }
+
+        JComboBox<String> comboBox = new JComboBox<>(genderDescriptions);
+        int choice = JOptionPane.showConfirmDialog(null, comboBox, "Escolha um Gênero", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if (choice == JOptionPane.OK_OPTION) {
+            int selectedIndex = comboBox.getSelectedIndex();
+            if (selectedIndex >= 0 && selectedIndex < genders.length) {
+                return genders[selectedIndex];
+            }
+        }
+        return null;
+    }
 
 }

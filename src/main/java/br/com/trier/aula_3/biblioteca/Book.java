@@ -106,7 +106,7 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return this.title + "\nPreço: R$ " + this.price + "\nAutores: \n" + Utils.stringAllArrayObjects(this.authors)
+		return "*"+this.title + "*\nPreço: R$ " + this.price + "\nAutores: \n" + Utils.stringAllArrayObjects(this.authors)
 				+ "----------------------------------------------\n";
 	}
 

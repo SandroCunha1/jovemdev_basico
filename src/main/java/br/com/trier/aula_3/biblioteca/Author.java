@@ -34,7 +34,6 @@ public class Author {
 		this.name = JOptionPane.showInputDialog("Nome e Sobrenome");
 		String[] palavras = this.name.split(" ");
 		int quantidadePalavras = palavras.length;
-		System.err.println(quantidadePalavras);
 		if (this.name.trim().equals("") || quantidadePalavras < 2) {
 			throw new Exception("Digite o nome e sobrenome!");
 		}
@@ -53,6 +52,6 @@ public class Author {
 
 	@Override
 	public String toString() {
-		return this.name + "\n Idade: " + this.age + "\n Sexo: " + gender.getDescription() + "\n\n";
+		return "   ["+this.name + "]\n    Idade: " + this.age + "\n    Sexo: " + gender.getDescription() + "\n";
 	}
 }
