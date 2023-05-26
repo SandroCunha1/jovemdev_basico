@@ -28,15 +28,6 @@ public enum EnumGender {
 		return null;
 	}
 
-	/*
-	 * static EnumGender escolheGenero() { String menu = "Gênero: \n"; for
-	 * (EnumGender sex : EnumGender.values()) { menu += sex.id + " - " +
-	 * sex.description + "\n"; } int escolha =
-	 * Integer.parseInt(JOptionPane.showInputDialog(menu)); if
-	 * (buscaPorCodigo(escolha) == null) { JOptionPane.showMessageDialog(null,
-	 * "Gênero inválido!"); return escolheGenero(); } return
-	 * buscaPorCodigo(escolha); }
-	 */
 	
 	static EnumGender escolheGenero() {
         EnumGender[] genders = EnumGender.values();

@@ -4,6 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Getter
+@Setter
+@AllArgsConstructor
 public class Book {
 
 	private String title;
@@ -50,7 +58,7 @@ public class Book {
 			if (author == null) {
 				break;
 			}
-			if (isAlredyActor(author)) {
+			if (isAuthorInBook(author)) {
 				JOptionPane.showMessageDialog(null, "Já é um autor deste livro!");
 				continue;
 			}
@@ -59,20 +67,10 @@ public class Book {
 		} while (this.authors.size() < 4 && choose == 0);
 	}
 	
-	
-	public boolean isAlredyActor(Author newAuthor) {
-		for (Author author : authors) {
-			if(author.equals(newAuthor)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 
 	public boolean isAuthorInBook(Author author) {
 		for (Author ThisAuthor : this.authors) {
-			if (author.getName().equalsIgnoreCase(ThisAuthor.getName())) {
+			if (ThisAuthor.equals(author)) {
 				return true;
 			}
 		}

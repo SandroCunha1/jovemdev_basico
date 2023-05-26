@@ -2,11 +2,13 @@ package br.com.trier.aula_3.biblioteca;
 
 import javax.swing.JOptionPane;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class Author {
 	private String name;
 	private EnumGender gender;
