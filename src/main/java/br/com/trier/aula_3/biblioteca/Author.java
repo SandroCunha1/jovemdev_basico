@@ -10,50 +10,52 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Author {
-	private String name;
-	private EnumGender gender;
-	private int age;
+    private String name;
+    private EnumGender gender;
+    private int age;
 
-	public Author() {	
-	}
-	public void cadastraAutor() {
-		boolean cadastroValido = false;
+    public Author() {
+    }
 
-		while (!cadastroValido) {
-			try {
-				setName();
-				setAge();
-				setGender();
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, e + "\nErro no cadastro!");
-				continue;
-			}
-			cadastroValido = true;
-		}
-	}
+    public void cadastraAutor() {
+        boolean cadastroValido = false;
 
-	public void setName() throws Exception {
-		this.name = JOptionPane.showInputDialog("Nome e Sobrenome");
-		String[] palavras = this.name.split(" ");
-		int quantidadePalavras = palavras.length;
-		if (this.name.trim().equals("") || quantidadePalavras < 2) {
-			throw new Exception("Digite o nome e sobrenome!");
-		}
-	}
+        while (!cadastroValido) {
+            try {
+                setName(JOptionPane.showInputDialog("Nome e Sobrenome"));
+                setAge(Integer.parseInt(JOptionPane.showInputDialog("Idade")));
+                setGender(EnumGender.escolheGenero());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e + "\nErro no cadastro!");
+                continue;
+            }
+            cadastroValido = true;
+        }
+    }
 
-	public void setAge() throws Exception {
-		this.age = Integer.parseInt(JOptionPane.showInputDialog("Idade"));
-		if (this.age <= 0) {
-			throw new Exception("Idade inválida!");
-		}
-	}
+    public void setName(String name) throws Exception {
+        this.name = name;
+        String[] palavras = this.name.split(" ");
+        int quantidadePalavras = palavras.length;
+        if (this.name.trim().equals("") || quantidadePalavras < 2) {
+            throw new Exception("Digite o nome e sobrenome!");
+        }
+    }
 
-	public void setGender() throws Exception {
-		this.gender = EnumGender.escolheGenero();
-	}
+    public void setAge(int age) throws Exception {
+        this.age = age;
+        if (this.age <= 0) {
+            throw new Exception("Idade inválida!");
+        }
+    }
 
-	@Override
-	public String toString() {
-		return "   ["+this.name + "]\n    Idade: " + this.age + "\n    Sexo: " + gender.getDescription() + "\n";
-	}
+    public void setGender(EnumGender gender) throws Exception {
+        this.gender = gender;
+    }
+
+    @Override
+    public String toString() {
+        return "   [" + this.name + "]\n    Idade: " + this.age + "\n    Sexo: " + gender.getDescription() + "\n";
+    }
 }
+
