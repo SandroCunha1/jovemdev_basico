@@ -2,19 +2,16 @@ package br.com.trier.aula_4.medicamentos.models;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import br.com.trier.aula_4.medicamentos.enums.EnumUses;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @AllArgsConstructor
 @Getter
 @Setter
 public class Medicine {
-	private Integer id;
+	private int id;
 	private String name;
 	private EnumUses type;
 	private List<String> contraindications = new ArrayList<>();

@@ -1,8 +1,10 @@
 package br.com.trier.aula_4.diciplinas.enums;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @AllArgsConstructor
+@Getter
 public enum EnumEducation {
 
 	GRADUATION(1, "Graduação"),

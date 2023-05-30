@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Person {
-	private Integer id;
+	private int id;
 	private String name;
 	private String symptom;
 	private List<String> allergies;
@@ -43,7 +43,7 @@ public class Person {
 	
 	@Override
 	public String toString() {
-		return this.name + " [Medicamentos]\n" + prescriptions.toString();
+		return this.id + " "+ this.name + " [Medicamentos]\n" + prescriptions.toString();
 	}
 
 	
