@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 
-public class Person {
+public class Person implements Identifiable{
 	private int id;
 	private String name;
 	private String symptom;
@@ -13,7 +13,6 @@ public class Person {
 	private List<Medicine> prescriptions;
 	
 	public Person(String name, String symptom, List<String> allergies, List<Medicine> prescriptions) {
-		super();
 		this.name = name;
 		this.symptom = symptom;
 		this.allergies = allergies;
@@ -33,7 +32,6 @@ public class Person {
 		}
 		
 	}
-	
 	
 	public void newAllergie(String allergie) {
 		allergies.add(allergie);

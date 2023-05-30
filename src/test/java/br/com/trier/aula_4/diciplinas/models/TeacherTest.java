@@ -1,17 +1,10 @@
 package br.com.trier.aula_4.diciplinas.models;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import br.com.trier.aula_4.diciplinas.enums.EnumEducation;
-import br.com.trier.aula_4.diciplinas.repository.DisciplineDao;
-import br.com.trier.aula_4.diciplinas.repository.StudentDao;
 import br.com.trier.aula_4.diciplinas.repository.TeacherDao;
 
 class TeacherTest {

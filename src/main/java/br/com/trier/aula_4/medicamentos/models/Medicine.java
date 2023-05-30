@@ -3,12 +3,10 @@ package br.com.trier.aula_4.medicamentos.models;
 import java.util.ArrayList;
 import java.util.List;
 import br.com.trier.aula_4.medicamentos.enums.EnumUses;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-public class Medicine {
+public class Medicine implements Identifiable {
 	private int id;
 	private String name;
 	private EnumUses type;
@@ -16,17 +14,14 @@ public class Medicine {
 	private List<String> recommendations = new ArrayList<>();
 	
 	public Medicine(String name, EnumUses type, List<String> contraindications, List<String> recommendations) {
-		super();
 		this.name = name;
 		this.type = type;
 		this.contraindications = contraindications;
 		this.recommendations = recommendations;
 	}
 	
-	public boolean isRecommended(String symptons) {
-		return recommendations
-					.stream()
-					.anyMatch(r -> r.equals(symptons));
+	public boolean isRecommended(String symptom) {
+		return recommendations.contains(symptom);
 	}
 	
 	public boolean isContraindicated(List<String> allergies) {
