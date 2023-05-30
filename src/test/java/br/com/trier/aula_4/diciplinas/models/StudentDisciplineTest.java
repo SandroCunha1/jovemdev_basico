@@ -21,6 +21,8 @@ class StudentDisciplineTest {
 	@BeforeEach
 	void init() {
 		bd.clearData();
+		diciplineBD.clearData();
+		teacherBD.clearData();
 		Student s1 = new Student("Student 1");
 		bd.create(s1);
 		Teacher t1 = new Teacher("Teacher 1", EnumEducation.ESPECIALIZATION);

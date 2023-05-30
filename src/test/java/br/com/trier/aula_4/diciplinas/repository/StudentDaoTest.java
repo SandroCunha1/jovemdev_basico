@@ -19,6 +19,8 @@ class StudentDaoTest {
 	@BeforeEach
 	void init() {
 		bd.clearData();
+		diciplineBD.clearData();
+		teacherBD.clearData();
 		Student s1 = new Student("Student 1");
 		Student s2 = new Student("Student 2");
 		Student s3 = new Student("Student 3");
