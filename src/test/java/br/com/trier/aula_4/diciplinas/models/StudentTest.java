@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import br.com.trier.aula_4.diciplinas.enums.EnumEducation;
@@ -51,6 +52,25 @@ class StudentTest {
 		diciplineBD.create(d4);
 	}
 	
+	
+	@Test
+	@DisplayName("Teste do construtor")
+	void testConstructor() {
+		assertNotNull(bd.findById(1));
+		assertEquals("Student 1", bd.findById(1).getName());
+		
+	}
+
+	@Test
+	@DisplayName("Teste do nome vazio")
+	void testConstructorNameNull() {
+		assertThrows(Exception.class, () -> {
+			@SuppressWarnings("unused")
+			Student student1 = new Student(null);
+		});
+	}
+
+
 	@Test
 	void testAddNewStudentDiscipline() {
 		List<Double> notas = new ArrayList<>();

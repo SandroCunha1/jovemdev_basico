@@ -3,10 +3,8 @@ import br.com.trier.aula_4.diciplinas.enums.EnumEducation;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
 @RequiredArgsConstructor
 public class Teacher {
 	private int id;
@@ -14,6 +12,11 @@ public class Teacher {
 	private String name;
 	@NonNull
 	private EnumEducation education;
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	
 	
 }

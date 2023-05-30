@@ -7,18 +7,16 @@ import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @RequiredArgsConstructor
 @Getter
-@Setter
 public class Student {
 	private int id;
 	@NonNull
 	private String name;
-	@NonNull
 	private List<StudentDiscipline> studentsDisciplines = new ArrayList<>();
 
+	
 	public void setStudentsDisciplines(Discipline discipline, List<Double> notes) {
 		studentsDisciplines.add(new StudentDiscipline(this, discipline, notes));
 	}
@@ -43,4 +41,14 @@ public class Student {
 
 		return result;
 	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	
+
+
+	
+	
 }
