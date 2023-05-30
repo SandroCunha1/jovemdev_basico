@@ -16,13 +16,15 @@ class MedicineDaoTest {
 
 	private MedicineDao medicines;
 
+    List<String> contraindications = new ArrayList<>();
+    List<String> recommendations = new ArrayList<>();
     @BeforeEach
     void init() {
         medicines = new MedicineDao();
         medicines.clearData();
 
-        List<String> contraindications = new ArrayList<>();
-        List<String> recommendations = new ArrayList<>();
+        contraindications = new ArrayList<>();
+        recommendations = new ArrayList<>();
         contraindications.add("Alergia à macaco");
         recommendations.add("Gripe");
         Medicine m1 = new Medicine("Demazopam", EnumUses.INJECTABLE, contraindications, recommendations);
@@ -34,6 +36,19 @@ class MedicineDaoTest {
     void testFindByIdExistingMedicine() {
         Medicine medicine = medicines.findById(1);
         assertEquals("Demazopam", medicine.getName());
+        assertEquals(EnumUses.INJECTABLE, medicine.getType());
+    }
+    
+    @Test
+    @DisplayName("Teste do método findById com ID existente depois de remover e mexer na lista")
+    void testFindByIdExistingMedicineAfterRemoving() {
+    	Medicine m1 = new Medicine("Neosaudina", EnumUses.INJECTABLE, contraindications, recommendations);
+        medicines.create(m1);
+        medicines.delete(2);
+        Medicine m2 = new Medicine("Capetina", EnumUses.INJECTABLE, contraindications, recommendations);
+        medicines.create(m2);
+        Medicine medicine = medicines.findById(3);
+        assertEquals("Capetina", medicine.getName());
         assertEquals(EnumUses.INJECTABLE, medicine.getType());
     }
 

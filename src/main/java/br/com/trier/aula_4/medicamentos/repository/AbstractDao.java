@@ -7,9 +7,12 @@ import br.com.trier.aula_4.medicamentos.models.Identifiable;
 public abstract class AbstractDao<T extends Identifiable> {
     protected List<T> bd = new ArrayList<>();
 
+    private int id = 1;
+    
     public T create(T item) {
-        item.setId(bd.size() + 1);
+        item.setId(id);
         bd.add(item);
+        id = bd.size() + 1;
 
         return item;
     }

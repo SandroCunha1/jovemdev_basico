@@ -17,6 +17,8 @@ class PersonDaoTest {
 
 	PersonDao persons = new PersonDao();
 	MedicineDao medicines = new MedicineDao();
+	List<String> allergies;
+	List<Medicine> prescriptions;
 
 	@BeforeEach
 	void init() {
@@ -30,9 +32,9 @@ class PersonDaoTest {
 		Medicine m1 = new Medicine("Demazopam", EnumUses.INJECTABLE, contraindications, recommendations);
 		medicines.create(m1);
 		
-		List<String> allergies = new ArrayList<>();
+		allergies = new ArrayList<>();
 		allergies.add("Abelha");
-		List<Medicine> prescriptions = new ArrayList<>();
+		prescriptions = new ArrayList<>();
 		Person p1 = new Person("Joãozinho", "Gripe", allergies, prescriptions);
 		p1.setPrescriptions(m1);
 		persons.create(p1);
@@ -52,6 +54,19 @@ class PersonDaoTest {
 		Person person = persons.findById(2);
 		assertEquals(null , person);
 	}
+	
+	@Test
+    @DisplayName("Teste do método findById com ID existente depois de remover e mexer na lista")
+    void testFindByIdExistingMedicineAfterRemoving() {
+		Person p1 = new Person("Joãozinho", "Gripe", allergies, prescriptions);
+		persons.create(p1);
+        persons.delete(2);
+        Person p2 = new Person("Joãozinho", "Gripe", allergies, prescriptions);
+		persons.create(p2);
+        Person person = persons.findById(3);
+        assertEquals("Joãozinho", person.getName());
+        assertEquals("Gripe", person.getSymptom());
+    }
 	
 	@Test
 	@DisplayName("Teste do método delete com ID existente")
