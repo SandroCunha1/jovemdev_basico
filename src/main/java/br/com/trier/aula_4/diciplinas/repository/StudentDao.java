@@ -20,6 +20,17 @@ public class StudentDao {
 				.orElse(null);
 	}
 	
+	public Student delete(final Integer id) {
+	    Student studentToDelete = findById(id);
+
+	    if (studentToDelete != null) {
+	        studentsBD.removeIf(s -> id.equals(s.getId()));
+	    }
+
+	    return studentToDelete;
+	}
+
+	
 	public void clearData() {
 		studentsBD.clear();
 	}

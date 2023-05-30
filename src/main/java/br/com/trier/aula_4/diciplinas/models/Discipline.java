@@ -8,12 +8,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class Dicipline {
+public class Discipline {
 
 	private int id;
 	@NonNull
 	private String name;
-	private int workload;
+	@NonNull
+	private Integer workload;
 	@NonNull
 	private Teacher teacher;
 	

@@ -2,6 +2,7 @@ package br.com.trier.aula_4.diciplinas.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -16,11 +17,30 @@ public class Student {
 	@NonNull
 	private String name;
 	@NonNull
-	private List<StudentDicipline> studentsDiciplines = new ArrayList<>();
-	
-	
-	
-	public void setStudentsDiciplines(Dicipline dicipline, List<Double> notes) {
-		studentsDiciplines.add(new StudentDicipline(this, dicipline, notes));
+	private List<StudentDiscipline> studentsDisciplines = new ArrayList<>();
+
+	public void setStudentsDisciplines(Discipline discipline, List<Double> notes) {
+		studentsDisciplines.add(new StudentDiscipline(this, discipline, notes));
+	}
+
+	public List<Double> getDisciplineNotes(Discipline discipline) {
+		StudentDiscipline d = studentsDisciplines
+								.stream()
+								.filter(s -> s.getDiscipline().equals(discipline)).findAny()
+								.orElse(null);
+		if (d != null)
+			return d.getNotes();
+		else
+			return null;
+	}
+
+	public String getDisciplinesAndAvarege() {
+
+		String result = studentsDisciplines
+				.stream()
+				.map(sd -> sd.getDiscipline().getName() + " - " + sd.getAverage())
+				.collect(Collectors.joining("\n"));
+
+		return result;
 	}
 }

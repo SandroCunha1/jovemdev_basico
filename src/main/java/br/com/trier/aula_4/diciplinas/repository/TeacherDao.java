@@ -21,7 +21,22 @@ public class TeacherDao {
 				.orElse(null);
 	}
 	
+	public Teacher delete(final Integer id) {
+	    Teacher teacherToDelete = findById(id);
+
+	    if (teacherToDelete != null) {
+	        teachersBD.removeIf(t -> id.equals(t.getId()));
+	    }
+
+	    return teacherToDelete;
+	}
+
+	
 	public void clearData() {
 		teachersBD.clear();
+	}
+
+	public List<Teacher> findAll() {
+		return teachersBD;
 	}
 }

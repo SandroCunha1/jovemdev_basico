@@ -2,11 +2,11 @@ package br.com.trier.aula_4.diciplinas.repository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import br.com.trier.aula_4.diciplinas.enums.EnumEducation;
-import br.com.trier.aula_4.diciplinas.models.Dicipline;
+import br.com.trier.aula_4.diciplinas.models.Discipline;
 import br.com.trier.aula_4.diciplinas.models.Student;
 import br.com.trier.aula_4.diciplinas.models.Teacher;
 
@@ -14,7 +14,7 @@ import br.com.trier.aula_4.diciplinas.models.Teacher;
 class StudentDaoTest {
 
 	private StudentDao bd = new StudentDao();
-	private DiciplineDao diciplineBD = new DiciplineDao();
+	private DisciplineDao diciplineBD = new DisciplineDao();
 	private TeacherDao teacherBD = new TeacherDao();
 	@BeforeEach
 	void init() {
@@ -37,10 +37,10 @@ class StudentDaoTest {
 		teacherBD.create(t3);
 		teacherBD.create(t4);
 		
-		Dicipline d1 = new Dicipline("Mat", t1);
-		Dicipline d2 = new Dicipline("Port", t2);
-		Dicipline d3 = new Dicipline("Geo", t3);
-		Dicipline d4 = new Dicipline("Hist", t4);
+		Discipline d1 = new Discipline("Mat", 200, t1);
+		Discipline d2 = new Discipline("Port", 100, t2);
+		Discipline d3 = new Discipline("Geo", 100, t3);
+		Discipline d4 = new Discipline("Hist", 100, t4);
 		diciplineBD.create(d1);
 		diciplineBD.create(d2);
 		diciplineBD.create(d3);
@@ -50,13 +50,29 @@ class StudentDaoTest {
 	@Test
 	void testAddNewStudent() {
 		Student created = bd.create(new Student("Sandro"));
-		assertEquals(created, bd.findById(1));
+		assertEquals(created, bd.findById(5));
 	}
 	
 	@Test
-	void testAddNewStudentDicipline() {
-		bd.findById(1).setStudentsDiciplines(null, null);
-		//assertEquals(created, bd.findById(1));
-	}
+    void testDeleteLast() {
+		Student student = new Student("Marquinhos");
+        bd.create(student);
+
+        assertNotNull(bd.findById(5));
+
+        Student deletedStudent = bd.delete(5);
+
+        assertEquals(student, deletedStudent);
+        assertNull(bd.findById(5));
+    }
+	
+	@Test
+    void testDeleteFirst() {
+        assertNotNull(bd.findById(1));
+        bd.delete(1);
+        assertNull(bd.findById(1));
+    }
+	
+	
 
 }
