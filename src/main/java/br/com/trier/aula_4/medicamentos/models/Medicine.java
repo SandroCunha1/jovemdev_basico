@@ -7,9 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@AllArgsConstructor
 @Getter
-@Setter
 public class Medicine {
 	private int id;
 	private String name;
@@ -40,6 +38,10 @@ public class Medicine {
 	@Override
 	public String toString() {
 		return this.name + " - Uso: " + type.getDescription() + "\n";
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	

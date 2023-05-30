@@ -64,7 +64,7 @@ class MedicineTest {
     }
     
     @Test
-    @DisplayName("Teste do construtor com lista vazia de contraindicações e recomendações")
+    @DisplayName("Teste do construtor ")
     void testConstructorWithEmptyLists() {
         Medicine emptyMedicine = new Medicine("EmptyMedicine", EnumUses.ORAL, new ArrayList<>(), new ArrayList<>());
         assertNotNull(emptyMedicine);

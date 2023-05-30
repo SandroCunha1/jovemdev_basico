@@ -1,13 +1,10 @@
 package br.com.trier.aula_4.medicamentos.models;
 
 import java.util.List;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
-@AllArgsConstructor
 @Getter
-@Setter
+
 public class Person {
 	private int id;
 	private String name;
@@ -37,6 +34,7 @@ public class Person {
 		
 	}
 	
+	
 	public void newAllergie(String allergie) {
 		allergies.add(allergie);
 	}
@@ -45,6 +43,15 @@ public class Person {
 	public String toString() {
 		return this.id + " "+ this.name + " [Medicamentos]\n" + prescriptions.toString();
 	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setSymptom(String symptom) {
+		this.symptom = symptom;
+	}
+	
 
 	
 }
