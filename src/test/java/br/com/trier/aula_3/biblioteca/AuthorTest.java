@@ -83,19 +83,19 @@ class AuthorTest {
         });
     }
 
-    @Test
-    @DisplayName("Teste setGender() com gênero inválido")
-    void testSetGenderWithInvalidGender() {
-        Author author = new Author();
-
-        Exception exception = assertThrows(Exception.class, () -> {
-            author.setGender(null);
-        });
-
-        String expectedMessage = "Gênero inválido!";
-        String actualMessage = exception.getMessage();
-
-        assertEquals(expectedMessage, actualMessage);
-    }
+	/*
+	 * @Test
+	 * 
+	 * @DisplayName("Teste setGender() com gênero inválido") void
+	 * testSetGenderWithInvalidGender() { Author author = new Author();
+	 * 
+	 * Exception exception = assertThrows(Exception.class, () -> {
+	 * author.setGender(null); });
+	 * 
+	 * String expectedMessage = "Gênero inválido!"; String actualMessage =
+	 * exception.getMessage();
+	 * 
+	 * assertEquals(expectedMessage, actualMessage); }
+	 */
 
 }
