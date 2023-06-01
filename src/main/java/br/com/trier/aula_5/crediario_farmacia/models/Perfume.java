@@ -8,10 +8,10 @@ public class Perfume extends Product{
 	}
 
 	@Override
-	public void sale(Client client) {
-		 if(client.getBalance() > -300) {
-			super.sale(client); 
-		 }
+	public void sale(Client client, int qnt) {
+		 if(client.getBalance() - (getValue() * qnt) > -300) {
+			super.sale(client, qnt); 
+	}
 		
 	}
 }

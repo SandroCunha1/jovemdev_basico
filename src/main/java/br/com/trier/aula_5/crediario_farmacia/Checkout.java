@@ -5,8 +5,8 @@ import br.com.trier.aula_5.crediario_farmacia.models.Product;
 
 public class Checkout {
 
-	public void makeSale(Product product, Client client) {
-		product.sale(client);
+	public void makeSale(Product product, Client client, int qntProducts) {
+		product.sale(client, qntProducts);
 	}
 	
 	public void payDebt(Client client) {

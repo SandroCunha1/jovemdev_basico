@@ -19,13 +19,7 @@ public class SpecialAccount extends Account {
 			return false;		
 	}
 
-	@Override
-	public boolean transfer(double qnt, Account account) {
-		if(balance + limit >= qnt) {
-			return super.transfer(qnt, account);
-			}
-			return false;
-	}
+	
 	
 	
 }

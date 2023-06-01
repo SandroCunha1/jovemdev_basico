@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import br.com.trier.aula_4.diciplinas.models.Discipline;
 import br.com.trier.aula_5.crediario_farmacia.models.Client;
 import br.com.trier.aula_5.crediario_farmacia.models.HospiltalProducts;
 import br.com.trier.aula_5.crediario_farmacia.models.Medicine;
@@ -43,7 +44,7 @@ class CheckoutTest {
 	@Test
 	void fazendoUmaVendaBemSucedida() {
 		int inventoryInit = product1.getInventory();
-		checkout.makeSale(product1, client);
+		checkout.makeSale(product1, client, 1);
 		assertEquals(inventoryInit - 1, product1.getInventory());
 		assertEquals(client.getBalance() + product1.getValue(), 0);
 	}
@@ -52,12 +53,24 @@ class CheckoutTest {
 	void fazendoUmaVendaMalSucedidaDePerfume() {
 		int inventoryInit = product3.getInventory();
 		client.setBalance(-301);
-		checkout.makeSale(product3, client);
-		assertEquals(inventoryInit, product1.getInventory());
+		checkout.makeSale(product3, client, 1);
+		assertEquals(inventoryInit, product3.getInventory());
 		assertEquals(client.getBalance(), -301);
 	}
 	
 	@Test
+	void fazendoUmaVendaMalSucedidaDeMedicamentosQuePrecisaDeprescricao() {
+		int inventoryInit = product2.getInventory();
+		checkout.makeSale(product2, client, 1);
+		assertThrows(Exception.class ,() -> {
+    		@SuppressWarnings("unused")
+    		Checkout checkout = new Checkout();
+    		checkout.makeSale(product2, client, 1);
+        	}); 
+		assertEquals(inventoryInit, product2.getInventory());
+	}
+	
+@Test
 	void pagandoDebtoTotal() {
 		client.setBalance(-301);
 		checkout.payDebt(client);

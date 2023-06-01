@@ -8,11 +8,12 @@ public abstract class Product {
 	@Getter protected int inventory;
 	@Getter protected double value;
 	
-	public void sale(Client client) {
-		if (inventory > 0 ) {
-			inventory -= 1;
-			client.setBalance(client.getBalance() - value);
+	public void sale(Client client, int qnt) {
+		if (inventory - qnt > 0 ) {
+			inventory -= qnt;
+			client.setBalance(client.getBalance() - value * qnt);
 		}
 	}
+	
 	
 }

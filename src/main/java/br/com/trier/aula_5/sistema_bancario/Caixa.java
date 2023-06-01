@@ -1,7 +1,6 @@
 package br.com.trier.aula_5.sistema_bancario;
 
 import lombok.AllArgsConstructor;
-import lombok.Setter;
 
 @AllArgsConstructor
 public class Caixa {

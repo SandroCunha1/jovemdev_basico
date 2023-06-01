@@ -7,8 +7,8 @@ public class HospiltalProducts extends Product {
 	}
 
 	@Override
-	public void sale(Client client) {
-		inventory -= 1;
-		client.setBalance(client.getBalance() - value);
+	public void sale(Client client, int qnt) {
+		inventory -= qnt;
+		client.setBalance(client.getBalance() - value * qnt);
 	}
 }

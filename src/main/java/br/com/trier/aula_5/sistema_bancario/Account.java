@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @AllArgsConstructor
 @RequiredArgsConstructor
@@ -20,6 +19,7 @@ public abstract class Account {
 	
 
 	public boolean deposit(double qnt) {
+		if (qnt > 0)
 		balance += qnt;
 		return true;
 	}
@@ -33,8 +33,12 @@ public abstract class Account {
 	}
 	
 	public boolean transfer(double qnt, Account account) {
-			if (account.deposit(qnt)) {
-				return withdraw(qnt);
+			if (withdraw(qnt)) {
+				if(account.deposit(qnt)) {
+					return true;
+				}else {
+					this.deposit(qnt);
+				}
 			}
 		
 		return false;

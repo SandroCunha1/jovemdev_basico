@@ -10,7 +10,7 @@ class ProductTest {
 	void testeVendaMaiorQueEstoqueProdutosImportados() {
 		Product product = new HospiltalProducts("Seringa", 0, 0);
 		Client client = new Client("João");
-		product.sale(client);
+		product.sale(client, 1);
 		assertEquals(-1, product.inventory);
 	}
 	
@@ -18,8 +18,8 @@ class ProductTest {
 		Product product1 = new Medicine("Dezopan", 0, 0, false);
 		Product product2 = new Perfume("John", 0, 0);
 		Client client = new Client("João");
-		product1.sale(client);
-		product2.sale(client);
+		product1.sale(client, 1);
+		product2.sale(client, 1);
 		assertEquals(0, product1.inventory);
 		assertEquals(0, product2.inventory);
 	}

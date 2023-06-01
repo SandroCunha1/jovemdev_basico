@@ -7,7 +7,7 @@ public class UniversityAccount extends Account {
 	public UniversityAccount(int number, @NonNull String agencie, @NonNull String ownerAccount, double balance) {
 		super(number, agencie, ownerAccount);
 		if(balance < 2000) {
-			super.balance = balance;
+			this.balance = balance;
 		}
 	}
 
