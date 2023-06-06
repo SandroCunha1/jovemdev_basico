@@ -63,7 +63,6 @@ class CheckoutTest {
 		int inventoryInit = product2.getInventory();
 		checkout.makeSale(product2, client, 1);
 		assertThrows(Exception.class ,() -> {
-    		@SuppressWarnings("unused")
     		Checkout checkout = new Checkout();
     		checkout.makeSale(product2, client, 1);
         	}); 
