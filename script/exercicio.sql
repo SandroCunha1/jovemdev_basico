@@ -162,7 +162,7 @@ order by votos desc;
 -- 21 Selecionar a quantidade de votos registrados para prefeito na cidade de tubarão. Os
 --votos registrados são considerados os votos para os candidatos, mais os votos
 --brancos e nulos.
-select (((SUM(voto.voto)) + voto_invalido.brancos + voto_invalido.nulos) )
+select ((SUM(voto.voto)) + voto_invalido.brancos + voto_invalido.nulos) 
 from voto
 inner join candidato ON candidato.id = voto.candidato
 inner join cargo ON cargo.id  = candidato.cargo and cargo.nome = 'Prefeito'
@@ -170,23 +170,46 @@ inner join cidade ON cidade.id = candidato.cidade and cidade.nome = 'TUBARÃO'
 inner join voto_invalido on voto_invalido.cidade = cidade.id and voto_invalido.cargo = cargo.id
 group by voto_invalido.brancos , voto_invalido.nulos;
 
--- 22 Selecionar a quantidade de eleitores que deixaram de votar na cidade de tubarão.
-select cidade.qt_eleitores - (SUM(voto.voto + voto_invalido.brancos + voto_invalido.nulos)) AS eleitores_faltantes
-from cidade
-inner join candidato on cidade.id = candidato.cidade
-inner join cargo on cargo.id = candidato.cargo and cargo.nome = 'Prefeito'
-left join voto on voto.candidato = candidato.id
-left join voto_invalido on voto_invalido.cidade = cidade.id and voto_invalido.cargo = cargo.id
-where cidade.nome = 'TUBARÃO'
-group by cidade.qt_eleitores;
+
+--22. Selecionar a quantidade de eleitores que deixaram de votar na cidade de tubarão.     
+select c.qt_eleitores  - (((SUM(voto.voto)) + voto_invalido.brancos + voto_invalido.nulos) )
+	from voto
+	inner join candidato ON candidato.id = voto.candidato
+	inner join cargo ON cargo.id  = candidato.cargo and cargo.nome = 'Prefeito'
+	inner join cidade c ON c.id = candidato.cidade and c.nome = 'TUBARÃO'
+	inner join voto_invalido on voto_invalido.cidade = c.id and voto_invalido.cargo = cargo.id
+	group by c.qt_eleitores, voto_invalido.brancos , voto_invalido.nulos ;
+		
+
 
 -- 23. Selecionar a quantidade de eleitores que deixaram de votar em cada cidade,ordenado pela maior quantidade de faltantes.
 
-select cidade.nome, cidade.qt_eleitores - (((SUM(voto.voto)) + voto_invalido.brancos + voto_invalido.nulos) ) AS eleitores_faltantes
-from cidade
-inner join candidato on cidade.id = candidato.cidade
-inner join cargo on cargo.id = candidato.cargo and cargo.nome = 'Prefeito'
-left join voto on voto.candidato = candidato.id
-left join voto_invalido on voto_invalido.cidade = cidade.id and voto_invalido.cargo = cargo.id
-group by cidade.nome, cidade.qt_eleitores, voto_invalido.brancos, voto_invalido.nulos
-order by eleitores_faltantes desc;
+	select c.nome, (c.qt_eleitores  - (((SUM(voto.voto)) + voto_invalido.brancos + voto_invalido.nulos))) as abstenções
+	from voto
+	inner join candidato ON candidato.id = voto.candidato
+	inner join cargo ON cargo.id  = candidato.cargo and cargo.nome = 'Prefeito'
+	inner join cidade c ON c.id = candidato.cidade 
+	inner join voto_invalido on voto_invalido.cidade = c.id and voto_invalido.cargo = cargo.id
+	group by c.nome, c.qt_eleitores, voto_invalido.brancos , voto_invalido.nulos 
+    order by abstenções desc;
+
+
+-- 24 Selecionar o percentual de faltantes em cada cidade, ordenado pelo maior percentual.
+	
+	select c.nome, ((c.qt_eleitores  - (((SUM(voto.voto)) + voto_invalido.brancos + voto_invalido.nulos)))/ c.qt_eleitores * 100) as abstenções
+	from voto
+	inner join candidato ON candidato.id = voto.candidato
+	inner join cargo ON cargo.id  = candidato.cargo and cargo.nome = 'Prefeito'
+	inner join cidade c ON c.id = candidato.cidade 
+	inner join voto_invalido on voto_invalido.cidade = c.id and voto_invalido.cargo = cargo.id
+	group by c.nome, c.qt_eleitores, voto_invalido.brancos , voto_invalido.nulos 
+    order by abstenções desc;
+
+-- 25 Selecionar o candidato a prefeito eleito de cada cidade, ordenado pelo nome da cidade
+ 
+	select distinct on (c.nome) c.nome, c2.nome, voto.voto
+	from cidade c 
+	inner join candidato c2 on c2.cidade = c.id
+	inner join voto on voto.candidato = c2.id
+	inner join cargo on cargo.id = c2.cargo and cargo.nome = 'Prefeito'
+	order by c.nome, voto.voto desc;
